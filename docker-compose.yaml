@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  nginx-report:
+    build: ./nginx-report
+    ports:
+      - "80:80"
+    volumes:
+      - /data:/app/report/jobid
+    depends_on:
+      - report-control
+  report-control:
+    build: ./report-controller
+    volumes:
+      - /data:/app/report/jobid
+    environment:
+      - REPORT_PATH=/app/report/jobid
